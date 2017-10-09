@@ -6,7 +6,7 @@ const renderWindow = (elem, introFlag = false) => {
   if (!introFlag) {
     mainElement.appendChild(elem);
   } else {
-    mainElement.appendChild(elem.children.intro);
+    mainElement.appendChild(elem.children.intro.cloneNode(true));
   }
 };
 
