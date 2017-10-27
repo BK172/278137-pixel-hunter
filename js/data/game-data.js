@@ -1,31 +1,200 @@
-const getScore = (answers, lives) => {
-  const correctPoints = 100;
-  const fastPoints = 50;
-  const slowPoints = -50;
-  const livePoints = 50;
-  const gameFailed = -1;
-
-  if (answers.indexOf(`wrong`) !== -1 || lives < 0) {
-    return gameFailed;
-  }
-
-  let score = lives * livePoints;
-
-  answers.forEach((item) => {
-    switch (item) {
-      case `correct`:
-        score += correctPoints;
-        break;
-      case `fast`:
-        score += correctPoints + fastPoints;
-        break;
-      case `slow`:
-        score += correctPoints + slowPoints;
-        break;
-    }
-  });
-
-  return score;
+const initialData = {
+  lives: 3,
+  time: 30,
+  gameNum: 0,
+  stats: new Array(10).fill(`unknown`)
 };
 
-export default getScore;
+export const currentData = {
+  lives: initialData.lives,
+  time: initialData.time,
+  gameNum: initialData.gameNum,
+  stats: initialData.stats
+};
+
+export const games = [
+  {
+    task: `Угадайте для каждого изображения фото или рисунок?`,
+    type: `game1`,
+    questions: [
+      {
+        title: `Option 1`,
+        url: `https://k42.kn3.net/CF42609C8.jpg`,
+        width: 468,
+        height: 458,
+        answer: `drawing`
+      }, {
+        title: `Option 2`,
+        url: `https://k42.kn3.net/D2F0370D6.jpg`,
+        width: 468,
+        height: 458,
+        answer: `photo`
+      },
+    ]
+  },
+  {
+    task: `Угадайте для каждого изображения фото или рисунок?`,
+    type: `game1`,
+    questions: [
+      {
+        title: `Option 1`,
+        url: `https://k32.kn3.net/5C7060EC5.jpg`,
+        width: 468,
+        height: 458,
+        answer: `drawing`
+      }, {
+        title: `Option 2`,
+        url: `http://i.imgur.com/1KegWPz.jpg`,
+        width: 468,
+        height: 458,
+        answer: `photo`
+      },
+    ]
+  },
+  {
+    task: `Угадайте для каждого изображения фото или рисунок?`,
+    type: `game1`,
+    questions: [
+      {
+        title: `Option 1`,
+        url: `https://i.imgur.com/DiHM5Zb.jpg`,
+        width: 468,
+        height: 458,
+        answer: `drawing`
+      }, {
+        title: `Option 2`,
+        url: `http://i.imgur.com/DKR1HtB.jpg`,
+        width: 468,
+        height: 458,
+        answer: `photo`
+      },
+    ]
+  },
+  {
+    task: `Угадай, фото или рисунок?`,
+    type: `game2`,
+    questions: [
+      {
+        title: `Option 1`,
+        url: `https://k32.kn3.net/5C7060EC5.jpg`,
+        width: 705,
+        height: 455,
+        answer: `photo`
+      }
+    ]
+  },
+  {
+    task: `Угадай, фото или рисунок?`,
+    type: `game2`,
+    questions: [
+      {
+        title: `Option 1`,
+        url: `http://i.imgur.com/1KegWPz.jpg`,
+        width: 705,
+        height: 455,
+        answer: `photo`
+      }
+    ]
+  },
+  {
+    task: `Угадай, фото или рисунок?`,
+    type: `game2`,
+    questions: [
+      {
+        title: `Option 1`,
+        url: `https://i.imgur.com/DiHM5Zb.jpg`,
+        width: 705,
+        height: 455,
+        answer: `photo`
+      }
+    ]
+  },
+  {
+    task: `Угадай, фото или рисунок?`,
+    type: `game2`,
+    questions: [
+      {
+        title: `Option 1`,
+        url: `http://i.imgur.com/DKR1HtB.jpg`,
+        width: 705,
+        height: 455,
+        answer: `photo`
+      }
+    ]
+  },
+  {
+    task: `Угадайте для каждого изображения фото или рисунок?`,
+    type: `game3`,
+    questions: [
+      {
+        title: `Option 1`,
+        url: `https://k42.kn3.net/CF42609C8.jpg`,
+        width: 304,
+        height: 455,
+        answer: `drawing`
+      }, {
+        title: `Option 1`,
+        url: `https://k42.kn3.net/D2F0370D6.jpg`,
+        width: 304,
+        height: 455,
+        answer: `photo`
+      }, {
+        title: `Option 1`,
+        url: `http://i.imgur.com/DKR1HtB.jpg`,
+        width: 304,
+        height: 455,
+        answer: `drawing`
+      }
+    ]
+  },
+  {
+    task: `Угадайте для каждого изображения фото или рисунок?`,
+    type: `game3`,
+    questions: [
+      {
+        title: `Option 1`,
+        url: `https://k32.kn3.net/5C7060EC5.jpg`,
+        width: 304,
+        height: 455,
+        answer: `drawing`
+      }, {
+        title: `Option 1`,
+        url: `http://i.imgur.com/1KegWPz.jpg`,
+        width: 304,
+        height: 455,
+        answer: `photo`
+      }, {
+        title: `Option 1`,
+        url: `https://i.imgur.com/DiHM5Zb.jpg`,
+        width: 304,
+        height: 455,
+        answer: `drawing`
+      }
+    ]
+  },
+  {
+    task: `Угадайте для каждого изображения фото или рисунок?`,
+    type: `game3`,
+    questions: [
+      {
+        title: `Option 1`,
+        url: `https://k42.kn3.net/CF42609C8.jpg`,
+        width: 304,
+        height: 455,
+        answer: `drawing`
+      }, {
+        title: `Option 1`,
+        url: `https://k42.kn3.net/D2F0370D6.jpg`,
+        width: 304,
+        height: 455,
+        answer: `photo`
+      }, {
+        title: `Option 1`,
+        url: `http://i.imgur.com/DKR1HtB.jpg`,
+        width: 304,
+        height: 455,
+        answer: `drawing`
+      }
+    ]
+  }
+];

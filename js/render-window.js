@@ -1,3 +1,5 @@
+import footerTemplate from './templates/footer';
+
 const mainElement = document.querySelector(`.central`);
 
 const renderWindow = (elem, introFlag = false) => {
@@ -8,6 +10,8 @@ const renderWindow = (elem, introFlag = false) => {
   } else {
     mainElement.appendChild(elem.children.intro.cloneNode(true));
   }
+
+  mainElement.appendChild(footerTemplate);
 };
 
 export default renderWindow;

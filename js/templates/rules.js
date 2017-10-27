@@ -1,7 +1,8 @@
-import getElementFromTemplate from '../utils.js';
-import renderWindow from '../render-window.js';
-import {game1Template, renderGame2} from './game-1.js';
-import {introTemplate, renderGreeting} from './intro.js';
+import getElementFromTemplate from '../utils';
+import renderWindow from '../render-window';
+import getHeader from './header';
+import game1Template from './game-1';
+import {introTemplate, renderGreeting} from './intro';
 
 const rulesTemplate = getElementFromTemplate(`<header class="header">
 <div class="header__back">
@@ -51,8 +52,14 @@ const renderGame1 = () => {
 
   rulesBtn.addEventListener(`click`, () => {
     if (isNameEntered) {
-      renderWindow(game1Template);
-      renderGame2();
+      // const game1Node = game1Template();
+      // renderWindow(game1Node);
+
+      const game1 = game1Template();
+      const gameHeader = getHeader();
+      game1.prepend(gameHeader);
+      renderWindow(game1);
+      // renderGame2();
     }
   });
 

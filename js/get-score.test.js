@@ -1,5 +1,5 @@
 import assert from 'assert';
-import getScore from './game-data';
+import getScore from './get-score';
 
 describe(`Summary results`, () => {
   it(`should return -1 if correct answers count less than 10`, () => {
