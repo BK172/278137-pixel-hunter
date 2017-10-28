@@ -1,13 +1,13 @@
-const getScore = (answers, lives) => {
+export const getScore = (answers, lives) => {
   const correctPoints = 100;
   const fastPoints = 50;
   const slowPoints = -50;
   const livePoints = 50;
-  const gameFailed = -1;
+  // const gameFailed = -1;
 
-  if (answers.indexOf(`wrong`) !== -1 || lives < 1) {
-    return gameFailed;
-  }
+  // if (answers.indexOf(`wrong`) !== -1 || lives < 1) {
+  //   return gameFailed;
+  // }
 
   let score = lives * livePoints;
 
@@ -27,5 +27,3 @@ const getScore = (answers, lives) => {
 
   return score;
 };
-
-export default getScore;

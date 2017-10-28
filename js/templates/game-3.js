@@ -1,6 +1,6 @@
 import getElementFromTemplate from '../utils';
 import {currentData, games} from '../data/game-data';
-import getCurrentStats from '../templates/current-stats';
+import getCurrentStats from './current-stats';
 import {checkAnswer} from '../main';
 
 export default () => {
@@ -25,11 +25,9 @@ export default () => {
   const form = templateGame3.querySelector(`.game__content`);
   const pictures = form.querySelectorAll(`.game__option`);
 
-  const checkResult = (questions) => {
-    for (let i = 0; i < questions.length; i++) {
-      if (questions[i].answer === `drawing`) {
-        return `correct`;
-      }
+  const checkResult = (answer) => {
+    if (answer === `drawing`) {
+      return `correct`;
     }
 
     return `wrong`;
@@ -49,27 +47,12 @@ export default () => {
 
       for (let i = 0; i < pictures.length; i++) {
         if (pictures[i].classList.contains(`game__option--selected`)) {
-          answer1 = checkResult(games[currentData.gameNum].questions);
+          answer1 = checkResult(games[currentData.gameNum].questions[i].answer);
         }
       }
     }
 
     checkAnswer(answer1 === `wrong`);
-
-    // if (answer1 === `wrong`) {
-    //   currentData.stats.splice(currentData.gameNum, 1, `wrong`);
-    //   currentData.lives--;
-    //   checkLives();
-    // } else {
-    //   currentData.stats.splice(currentData.gameNum, 1, `correct`);
-    // }
-
-    // if (currentData.gameNum < currentData.stats.length - 1) {
-    //   currentData.gameNum++;
-    //   renderNextTemplate();
-    // } else if (currentData.gameNum === currentData.stats.length - 1) {
-    //   // render final stat
-    // }
   };
 
   form.addEventListener(`click`, onFormElementClick);

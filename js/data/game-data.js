@@ -123,7 +123,7 @@ export const games = [
     ]
   },
   {
-    task: `Угадайте для каждого изображения фото или рисунок?`,
+    task: `Найдите рисунок среди изображений`,
     type: `game3`,
     questions: [
       {
@@ -131,24 +131,24 @@ export const games = [
         url: `https://k42.kn3.net/CF42609C8.jpg`,
         width: 304,
         height: 455,
-        answer: `drawing`
+        answer: `photo`
       }, {
         title: `Option 1`,
         url: `https://k42.kn3.net/D2F0370D6.jpg`,
         width: 304,
         height: 455,
-        answer: `photo`
+        answer: `drawing`
       }, {
         title: `Option 1`,
         url: `http://i.imgur.com/DKR1HtB.jpg`,
         width: 304,
         height: 455,
-        answer: `drawing`
+        answer: `photo`
       }
     ]
   },
   {
-    task: `Угадайте для каждого изображения фото или рисунок?`,
+    task: `Найдите рисунок среди изображений`,
     type: `game3`,
     questions: [
       {
@@ -156,24 +156,24 @@ export const games = [
         url: `https://k32.kn3.net/5C7060EC5.jpg`,
         width: 304,
         height: 455,
-        answer: `drawing`
+        answer: `photo`
       }, {
         title: `Option 1`,
         url: `http://i.imgur.com/1KegWPz.jpg`,
         width: 304,
         height: 455,
-        answer: `photo`
+        answer: `drawing`
       }, {
         title: `Option 1`,
         url: `https://i.imgur.com/DiHM5Zb.jpg`,
         width: 304,
         height: 455,
-        answer: `drawing`
+        answer: `photo`
       }
     ]
   },
   {
-    task: `Угадайте для каждого изображения фото или рисунок?`,
+    task: `Найдите рисунок среди изображений`,
     type: `game3`,
     questions: [
       {
@@ -181,19 +181,19 @@ export const games = [
         url: `https://k42.kn3.net/CF42609C8.jpg`,
         width: 304,
         height: 455,
-        answer: `drawing`
+        answer: `photo`
       }, {
         title: `Option 1`,
         url: `https://k42.kn3.net/D2F0370D6.jpg`,
         width: 304,
         height: 455,
-        answer: `photo`
+        answer: `drawing`
       }, {
         title: `Option 1`,
         url: `http://i.imgur.com/DKR1HtB.jpg`,
         width: 304,
         height: 455,
-        answer: `drawing`
+        answer: `photo`
       }
     ]
   }

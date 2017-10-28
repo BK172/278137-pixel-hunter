@@ -1,6 +1,6 @@
 import getElementFromTemplate from '../utils';
 import {currentData, games} from '../data/game-data';
-import getCurrentStats from '../templates/current-stats';
+import getCurrentStats from './current-stats';
 import {checkAnswer} from '../main';
 
 export default () => {
@@ -48,21 +48,6 @@ export default () => {
       const answer1 = checkResult(result1, games[currentData.gameNum].questions[0].answer);
 
       checkAnswer(answer1 === `wrong`);
-
-      // if (answer1 === `wrong`) {
-      //   currentData.stats.splice(currentData.gameNum, 1, `wrong`);
-      //   currentData.lives--;
-      //   checkLives();
-      // } else {
-      //   currentData.stats.splice(currentData.gameNum, 1, `correct`);
-      // }
-
-      // if (currentData.gameNum < currentData.stats.length - 1) {
-      //   currentData.gameNum++;
-      //   renderNextTemplate();
-      // } else if (currentData.gameNum === currentData.stats.length - 1) {
-      //   // render final stat
-      // }
     }
   };
 

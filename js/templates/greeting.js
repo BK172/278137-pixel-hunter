@@ -1,7 +1,8 @@
 import getElementFromTemplate from '../utils';
-import renderWindow from '../render-window';
-import getHeader from './header-nostat';
+// import renderWindow from '../render-window';
+// import getHeader from './header-nostat';
 import rulesTemplate from './rules';
+import {renderTemplate} from '../main';
 
 export default () => {
   const templateGreeting = getElementFromTemplate(`<div class="greeting central--blur">
@@ -21,10 +22,11 @@ export default () => {
   const greetingControl = templateGreeting.querySelector(`.greeting__continue`);
 
   greetingControl.addEventListener(`click`, () => {
-    const rules = rulesTemplate();
-    const gameHeader = getHeader();
-    rules.prepend(gameHeader);
-    renderWindow(rules);
+    // const rules = rulesTemplate();
+    // const gameHeader = getHeader();
+    // rules.prepend(gameHeader);
+    // renderWindow(rules);
+    renderTemplate(rulesTemplate, true);
   });
 
   return templateGreeting;
