@@ -1,4 +1,4 @@
-const initialData = {
+export const initialData = {
   lives: 3,
   time: 30,
   gameNum: 0,

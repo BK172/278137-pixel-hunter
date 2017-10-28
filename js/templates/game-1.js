@@ -1,12 +1,10 @@
 import getElementFromTemplate from '../utils';
-import renderWindow from '../render-window';
-import {introTemplate, renderGreeting} from './intro';
 import {currentData, games} from '../data/game-data';
 import getCurrentStats from '../templates/current-stats';
-import {checkLives, renderNextTemplate} from '../main';
+import {checkAnswer} from '../main';
 
 export default () => {
-  const game1Template = getElementFromTemplate(`<div class="game">
+  const templateGame1 = getElementFromTemplate(`<div class="game">
       <p class="game__task">${games[currentData.gameNum].task}</p>
       <form class="game__content">
         <div class="game__option">
@@ -33,11 +31,11 @@ export default () => {
         </div>
       </form>
       <div class="stats">
-        ${getCurrentStats(currentData.stats)}
+        ${getCurrentStats()}
       </div>
     </div>`);
 
-  const form = game1Template.querySelector(`.game__content`);
+  const form = templateGame1.querySelector(`.game__content`);
   const question1 = form.querySelectorAll(`input[name="question1"]`);
   const question2 = form.querySelectorAll(`input[name="question2"]`);
 
@@ -52,7 +50,7 @@ export default () => {
     }
   };
 
-  const checkAnswers = () => {
+  const onFormElementClick = () => {
     for (let i = 0; i < question1.length; i++) {
       if (question1[i].checked) {
         result1 = question1[i].getAttribute(`value`);
@@ -69,24 +67,26 @@ export default () => {
       const answer1 = checkResult(result1, games[currentData.gameNum].questions[0].answer);
       const answer2 = checkResult(result2, games[currentData.gameNum].questions[1].answer);
 
-      if (answer1 === `wrong` || answer2 === `wrong`) {
-        currentData.stats.splice(currentData.gameNum, 1, `wrong`);
-        currentData.lives--;
-        checkLives();
-      } else {
-        currentData.stats.splice(currentData.gameNum, 1, `correct`);
-      }
+      checkAnswer(answer1 === `wrong` || answer2 === `wrong`);
 
-      if (currentData.gameNum < currentData.stats.length - 1) {
-        currentData.gameNum++;
-        renderNextTemplate();
-      } else if (currentData.gameNum === currentData.stats.length - 1) {
-        // render final stat
-      }
+      // if (answer1 === `wrong` || answer2 === `wrong`) {
+      //   currentData.stats.splice(currentData.gameNum, 1, `wrong`);
+      //   currentData.lives--;
+      //   checkLives();
+      // } else {
+      //   currentData.stats.splice(currentData.gameNum, 1, `correct`);
+      // }
+
+      // if (currentData.gameNum < currentData.stats.length - 1) {
+      //   currentData.gameNum++;
+      //   renderNextTemplate();
+      // } else if (currentData.gameNum === currentData.stats.length - 1) {
+      //   // render final stat
+      // }
     }
   };
 
-  form.addEventListener(`click`, checkAnswers);
+  form.addEventListener(`click`, onFormElementClick);
 
-  return game1Template;
+  return templateGame1;
 };
