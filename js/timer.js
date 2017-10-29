@@ -7,6 +7,9 @@ const getTimer = (time) => {
     time,
     tick() {
       return getTimer(time - 1);
+    },
+    reset() {
+      return getTimer(0);
     }
   };
 };
