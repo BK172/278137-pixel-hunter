@@ -1,19 +1,21 @@
-import getElementFromTemplate from '../utils.js';
-import renderWindow from '../render-window.js';
-import {greetingTemplate, renderRules} from './greeting.js';
+import getElementFromTemplate from '../utils';
+import renderWindow from '../render-window';
+import greetingTemplate from './greeting';
 
-const introTemplate = getElementFromTemplate(`<div id="intro" class="intro">
-<h1 class="intro__asterisk">*</h1>
-<p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-</div>`);
+export default () => {
+  const templateIntro = getElementFromTemplate(`<div id="intro" class="intro">
+  <h1 class="intro__asterisk">*</h1>
+  <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
+  </div>`);
 
-const renderGreeting = () => {
-  const introControl = document.querySelector(`.intro__asterisk`);
+  const introControl = templateIntro.querySelector(`.intro__asterisk`);
 
-  introControl.addEventListener(`click`, () => {
-    renderWindow(greetingTemplate);
-    renderRules();
+  introControl.addEventListener(`click`, (evt) => {
+    evt.preventDefault();
+
+    const greeting = greetingTemplate();
+    renderWindow(greeting);
   });
-};
 
-export {introTemplate, renderGreeting};
+  return templateIntro;
+};
