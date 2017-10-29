@@ -1,8 +1,5 @@
 import getElementFromTemplate from '../utils';
-// import renderWindow from '../render-window';
-// import getHeader from './header';
 import game1Template from './game-1';
-// import {currentData} from '../data/game-data';
 import {renderTemplate} from '../main';
 
 export default () => {
@@ -31,10 +28,6 @@ export default () => {
     evt.preventDefault();
 
     if (isNameEntered) {
-      // const game1 = game1Template();
-      // const gameHeader = getHeader(currentData);
-      // game1.prepend(gameHeader);
-      // renderWindow(game1);
       renderTemplate(game1Template);
     }
   };

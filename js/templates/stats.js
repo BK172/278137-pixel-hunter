@@ -49,9 +49,6 @@ export default () => {
   </div>`;
 
   const statsTemplate = getElementFromTemplate(template);
-  // const statsHeader = getHeader();
-  // statsTemplate.prepend(statsHeader);
-  // renderWindow(statsTemplate);
 
   return statsTemplate;
 };

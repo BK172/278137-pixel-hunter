@@ -26,24 +26,12 @@ export const renderNextTemplate = () => {
   switch (games[currentData.gameNum].type) {
     case `game1`:
       renderTemplate(game1Template);
-      // const game1 = game1Template();
-      // const gameHeader1 = getHeader(currentData);
-      // game1.prepend(gameHeader1);
-      // renderWindow(game1);
       break;
     case `game2`:
       renderTemplate(game2Template);
-      // const game2 = game2Template();
-      // const gameHeader2 = getHeader(currentData);
-      // game2.prepend(gameHeader2);
-      // renderWindow(game2);
       break;
     case `game3`:
       renderTemplate(game3Template);
-      // const game3 = game3Template();
-      // const gameHeader3 = getHeader(currentData);
-      // game3.prepend(gameHeader3);
-      // renderWindow(game3);
       break;
   }
 };
