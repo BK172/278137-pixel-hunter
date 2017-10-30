@@ -1,16 +1,24 @@
 export const initialData = {
   lives: 3,
-  time: 30,
-  gameNum: 0,
-  stats: new Array(10).fill(`unknown`)
+  time: 300,
+  level: 0,
+  answers: new Array(10).fill(`unknown`)
 };
 
 export const currentData = {
   lives: initialData.lives,
   time: initialData.time,
-  gameNum: initialData.gameNum,
-  stats: initialData.stats
+  level: initialData.level,
+  answers: initialData.answers
 };
+
+// export const initialAnswers = {
+//   answers: new Array(10).fill(`unknown`)
+// };
+
+// export const currentAnswers = {
+//   answers: initialAnswers.answers
+// };
 
 export const games = [
   {
