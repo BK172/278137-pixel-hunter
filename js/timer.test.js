@@ -18,7 +18,7 @@ describe(`Get timer`, () => {
     assert.equal(getTimer(30).tick().time, 29);
   });
 
-  it(`should return 'time is up' if time is 1`, () => {
-    assert.equal(getTimer(1).tick(), `time is up`);
+  it(`should return 'time is up' if time less than 0`, () => {
+    assert.equal(getTimer(0).tick(), `time is up`);
   });
 });

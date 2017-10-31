@@ -1,24 +1,34 @@
+export const TIME_LIMIT = 30;
+
+const INITIAL_LIVES = 3;
+const INITIAL_LEVEL = 0;
+const INITIAL_ANSWERS = new Array(10).fill(`unknown`);
+
 export const initialData = {
-  lives: 3,
-  time: 300,
-  level: 0,
-  answers: new Array(10).fill(`unknown`)
+  lives: INITIAL_LIVES,
+  time: TIME_LIMIT,
+  level: INITIAL_LEVEL,
+  answers: INITIAL_ANSWERS.slice()
 };
 
-export const currentData = {
-  lives: initialData.lives,
-  time: initialData.time,
-  level: initialData.level,
-  answers: initialData.answers
+export const resetGame = (state) => {
+  state.lives = INITIAL_LIVES;
+  state.time = TIME_LIMIT;
+  state.level = INITIAL_LEVEL;
+  state.answers = INITIAL_ANSWERS.slice();
 };
 
-// export const initialAnswers = {
-//   answers: new Array(10).fill(`unknown`)
-// };
+export let gameHistory = [];
 
-// export const currentAnswers = {
-//   answers: initialAnswers.answers
-// };
+export const addToHistory = (data) => {
+  gameHistory.push(data);
+
+  if (gameHistory.length > 2) {
+    gameHistory.shift();
+  }
+
+  return gameHistory;
+};
 
 export const games = [
   {
@@ -30,7 +40,7 @@ export const games = [
         url: `https://k42.kn3.net/CF42609C8.jpg`,
         width: 468,
         height: 458,
-        answer: `drawing`
+        answer: `paint`
       }, {
         title: `Option 2`,
         url: `https://k42.kn3.net/D2F0370D6.jpg`,
@@ -49,7 +59,7 @@ export const games = [
         url: `https://k32.kn3.net/5C7060EC5.jpg`,
         width: 468,
         height: 458,
-        answer: `drawing`
+        answer: `paint`
       }, {
         title: `Option 2`,
         url: `http://i.imgur.com/1KegWPz.jpg`,
@@ -68,7 +78,7 @@ export const games = [
         url: `https://i.imgur.com/DiHM5Zb.jpg`,
         width: 468,
         height: 458,
-        answer: `drawing`
+        answer: `paint`
       }, {
         title: `Option 2`,
         url: `http://i.imgur.com/DKR1HtB.jpg`,
@@ -141,13 +151,13 @@ export const games = [
         height: 455,
         answer: `photo`
       }, {
-        title: `Option 1`,
+        title: `Option 2`,
         url: `https://k42.kn3.net/D2F0370D6.jpg`,
         width: 304,
         height: 455,
-        answer: `drawing`
+        answer: `paint`
       }, {
-        title: `Option 1`,
+        title: `Option 3`,
         url: `http://i.imgur.com/DKR1HtB.jpg`,
         width: 304,
         height: 455,
@@ -166,13 +176,13 @@ export const games = [
         height: 455,
         answer: `photo`
       }, {
-        title: `Option 1`,
+        title: `Option 2`,
         url: `http://i.imgur.com/1KegWPz.jpg`,
         width: 304,
         height: 455,
-        answer: `drawing`
+        answer: `paint`
       }, {
-        title: `Option 1`,
+        title: `Option 3`,
         url: `https://i.imgur.com/DiHM5Zb.jpg`,
         width: 304,
         height: 455,
@@ -195,7 +205,7 @@ export const games = [
         url: `https://k42.kn3.net/D2F0370D6.jpg`,
         width: 304,
         height: 455,
-        answer: `drawing`
+        answer: `paint`
       }, {
         title: `Option 1`,
         url: `http://i.imgur.com/DKR1HtB.jpg`,

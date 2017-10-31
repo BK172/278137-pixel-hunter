@@ -4,23 +4,20 @@ import footer from '../footer';
 import getStats from '../current-stats';
 
 export default class GameView extends AbstractView {
-  //constructor(games, data) {
   constructor(games, state) {
     super();
     this.games = games[state.level];
-    //this.data = data;
     this.state = state;
   }
 
   get template() {
-    //let gameTemplate = `${getHeader(this.data)}
     let gameTemplate = `${getHeader(this.state)}
       <div class="game">
         <p class="game__task">${this.games.task}</p>`;
 
-        switch (this.games.type) {
-          case `game1`:
-            gameTemplate += `
+    switch (this.games.type) {
+      case `game1`:
+        gameTemplate += `
         <form class="game__content">
           <div class="game__option">
             <img src="${this.games.questions[0].url}" alt="${this.games.questions[0].title}" width="${this.games.questions[0].width}" height="${this.games.questions[0].height}"/>
@@ -45,9 +42,9 @@ export default class GameView extends AbstractView {
             </label>
           </div>
         </form>`;
-            break;
-          case `game2`:
-            gameTemplate += `
+        break;
+      case `game2`:
+        gameTemplate += `
         <form class="game__content  game__content--wide">
           <div class="game__option">
             <img src="${this.games.questions[0].url}" alt="${this.games.questions[0].title}" width="${this.games.questions[0].width}" height="${this.games.questions[0].height}"/>
@@ -61,9 +58,9 @@ export default class GameView extends AbstractView {
             </label>
           </div>
         </form>`;
-            break;
-          case `game3`:
-            gameTemplate += `
+        break;
+      case `game3`:
+        gameTemplate += `
         <form class="game__content  game__content--triple">
           <div class="game__option" data-option="option1">
             <img src="${this.games.questions[0].url}" alt="${this.games.questions[0].title}" width="${this.games.questions[0].width}" height="${this.games.questions[0].height}"/>
@@ -75,11 +72,10 @@ export default class GameView extends AbstractView {
             <img src="${this.games.questions[2].url}" alt="${this.games.questions[2].title}" width="${this.games.questions[2].width}" height="${this.games.questions[2].height}"/>
           </div>
         </form>`;
-            break;
-        }
+        break;
+    }
 
-        //gameTemplate += `<div class="stats">${getStats(this.data.answers)}</div>
-        gameTemplate += `<div class="stats">${getStats(this.state.answers)}</div>
+    gameTemplate += `<div class="stats">${getStats(this.state.answers)}</div>
       </div>
       ${footer}`;
 
@@ -87,30 +83,13 @@ export default class GameView extends AbstractView {
   }
 
   bind() {
-    // this.element.querySelector(`.back`).onclick = (evt) => {
-    //   evt.preventDefault();
-    //   this.goBack();
-    // };
-    // this.element.querySelector(`.game__content`).onclick = (evt) => {
-    //   this.onAnswerClick(this.element, evt);
-    // };
-
     this.timeElement = this.element.querySelector(`.game__timer`);
-
     const gameForm = this.element.querySelector(`.game__content`);
     const btnBack = this.element.querySelector(`.back`);
 
     const onGameFormClick = (evt) => {
-      // const gameType = this.games.type;
-      const target = evt.target; //.parentNode;
-
-      this.onAnswer(gameForm, this.state, target);
-
-      // if (gameType === `game1` || gameType === `game2` && target.classList.contains(`game__answer`)) {
-      //   this.onAnswer(this.state);
-      // } else if (gameType === `game3` && target.classList.contains(`game__option`)) {
-      //   this.onAnswer(this.state);
-      // }
+      const target = evt.target;
+      this.onAnswer(this.element, target);
     };
 
     gameForm.addEventListener(`click`, onGameFormClick);
@@ -120,10 +99,6 @@ export default class GameView extends AbstractView {
   updateTime(time) {
     this.timeElement.textContent = time;
   }
-
-  // onAnswer(state) {
-  //   return state;
-  // }
 
   onAnswer() {
 

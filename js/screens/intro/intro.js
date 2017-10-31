@@ -6,6 +6,7 @@ const intro = new IntroView();
 
 intro.onIntroBtnClick = (evt) => {
   evt.preventDefault();
+
   renderWindow(greeting);
 };
 

@@ -6,6 +6,7 @@ const greeting = new GreetingView();
 
 greeting.onGreetingBtnClick = (evt) => {
   evt.preventDefault();
+
   renderWindow(rules);
 };
 

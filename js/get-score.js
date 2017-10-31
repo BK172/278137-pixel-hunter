@@ -1,8 +1,10 @@
+const CORRECT_POINTS = 100;
+const FAST_POINTS = 50;
+const SLOW_POINTS = 50;
+const LIVE_POINTS = 50;
+
 export const getScore = (answers, lives) => {
-  const correctPoints = 100;
-  const fastPoints = 50;
-  const slowPoints = 50;
-  const livePoints = 50;
+  const _lives = lives === -1 ? 0 : lives;
 
   let score = {
     correct: 0,
@@ -12,25 +14,49 @@ export const getScore = (answers, lives) => {
     total: 0
   };
 
-  answers.forEach((item) => {
+  for (let item of answers) {
     switch (item) {
       case `correct`:
-        score.correct += correctPoints;
-        score.total += correctPoints;
+        score.correct += CORRECT_POINTS;
+        score.total += CORRECT_POINTS;
         break;
       case `fast`:
-        score.fast += correctPoints + fastPoints;
-        score.total += correctPoints + fastPoints;
+        score.fast += CORRECT_POINTS + FAST_POINTS;
+        score.total += CORRECT_POINTS + FAST_POINTS;
         break;
       case `slow`:
-        score.slow += correctPoints + slowPoints;
-        score.total -= correctPoints + slowPoints;
+        score.slow += CORRECT_POINTS + SLOW_POINTS;
+        score.total += CORRECT_POINTS - SLOW_POINTS;
         break;
     }
-  });
+  }
 
-  score.lives = lives * livePoints;
+  score.lives = _lives * LIVE_POINTS;
   score.total += score.lives;
 
   return score;
+};
+
+export const getScoreCount = (answers) => {
+  let count = {
+    correct: 0,
+    fast: 0,
+    slow: 0
+  };
+
+  for (let item of answers) {
+    switch (item) {
+      case `correct`:
+        count.correct++;
+        break;
+      case `fast`:
+        count.fast++;
+        break;
+      case `slow`:
+        count.slow++;
+        break;
+    }
+  }
+
+  return count;
 };
