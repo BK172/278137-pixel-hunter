@@ -1,8 +1,13 @@
-const getElementFromTemplate = (str) => {
-  const newElem = document.createElement(`div`);
-  newElem.insertAdjacentHTML(`afterbegin`, str);
+const mainElement = document.querySelector(`.central`);
 
-  return newElem;
+export const renderWindow = (screen) => {
+  mainElement.innerHTML = ``;
+  mainElement.appendChild(screen.element);
 };
 
-export default getElementFromTemplate;
+export const getElementFromTemplate = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement;
+};
