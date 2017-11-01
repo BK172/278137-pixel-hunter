@@ -1,13 +1,19 @@
 import GreetingView from './greeting-view';
-import rules from '../rules/rules';
 import {renderWindow} from '../../utils';
+import App from '../../application';
 
-const greeting = new GreetingView();
+class GreetingScreen {
+  constructor() {
+    this.view = new GreetingView();
+  }
 
-greeting.onGreetingBtnClick = (evt) => {
-  evt.preventDefault();
+  init() {
+    renderWindow(this.view);
 
-  renderWindow(rules);
-};
+    this.view.onGreetingBtnClick = () => {
+      App.showRules();
+    };
+  }
+}
 
-export default greeting;
+export default new GreetingScreen();
