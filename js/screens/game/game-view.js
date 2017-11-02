@@ -2,12 +2,19 @@ import AbstractView from '../../abstract-view';
 import getHeader from '../header';
 import footer from '../footer';
 import getStats from '../current-stats';
+import {initialData} from '../../data/game-data';
+
+const updateView = (container, view) => {
+  container.innerHTML = ``;
+  container.appendChild(view.element);
+};
 
 export default class GameView extends AbstractView {
-  constructor(games, state) {
+  constructor(model) {
     super();
-    this.games = games[state.level];
-    this.state = state;
+    this.model = model;
+    this.state = model.state || initialData;
+    this.games = model.data[this.state.level];
   }
 
   get template() {
@@ -83,6 +90,17 @@ export default class GameView extends AbstractView {
   }
 
   bind() {
+    this.updateControls();
+
+    return super.bind();
+  }
+
+  updateLevel() {
+    updateView(this.element, new GameView(this.model));
+    this.updateControls();
+  }
+
+  updateControls() {
     this.timeElement = this.element.querySelector(`.game__timer`);
     const gameForm = this.element.querySelector(`.game__content`);
     const btnBack = this.element.querySelector(`.back`);

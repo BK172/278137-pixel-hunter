@@ -1,3 +1,5 @@
+export const TIMER_INTERVAL = 1000;
+
 export const TIME_LIMIT = 30;
 
 const INITIAL_LIVES = 3;

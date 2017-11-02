@@ -16,10 +16,6 @@ export default class StatsView extends AbstractView {
   }
 
   get template() {
-    // const _score = getScore(this.state.answers, this.state.lives);
-    // const _scoreCount = getScoreCount(this.state.answers);
-    // const _correctLives = this.state.lives === -1 ? 0 : this.state.lives;
-
     const getTemplateWin = (answers, lives, score, scoreCount, resultNumber = 1) => {
       return `<table class="result__table">
         <tr>
@@ -85,24 +81,15 @@ export default class StatsView extends AbstractView {
 
     if (this.state.lives >= 0 && this.state.level === this.state.answers.length - 1) {
       statsTemplate += `<h1>${statsData.title.win}</h1>`;
-      //statsTemplate += getTemplateWin(this.state.answers, _correctLives, _score, _scoreCount);
       statsTemplate += getTemplateWin(this.state.answers, this._correctLives, this._score, this._scoreCount);
       statsTemplate += getTemplateHistory(gameHistory);
     } else {
       statsTemplate += `<h1>${statsData.title.fail}</h1>`;
-      //statsTemplate += getTemplateFail(this.state.answers, _score);
       statsTemplate += getTemplateFail(this.state.answers, this._score);
     }
 
     statsTemplate += `</div>
       ${footer}`;
-
-    // this.history = {
-    //   answers: this.state.answers.slice(),
-    //   lives: _correctLives,
-    //   score: _score,
-    //   scoreCount: _scoreCount
-    // };
 
     return statsTemplate;
   }
@@ -110,7 +97,9 @@ export default class StatsView extends AbstractView {
   bind() {
     const btnBack = this.element.querySelector(`.back`);
 
-    btnBack.addEventListener(`click`, this.onBtnBackClick);
+    btnBack.onclick = () => {
+      this.onBtnBackClick();
+    };
   }
 
   onBtnBackClick() {
