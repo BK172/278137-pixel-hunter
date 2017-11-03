@@ -21,11 +21,13 @@ export const getScore = (answers, lives) => {
         score.total += CORRECT_POINTS;
         break;
       case `fast`:
-        score.fast += CORRECT_POINTS + FAST_POINTS;
+        score.correct += CORRECT_POINTS;
+        score.fast += FAST_POINTS;
         score.total += CORRECT_POINTS + FAST_POINTS;
         break;
       case `slow`:
-        score.slow += CORRECT_POINTS + SLOW_POINTS;
+        score.correct += CORRECT_POINTS;
+        score.slow += SLOW_POINTS;
         score.total += CORRECT_POINTS - SLOW_POINTS;
         break;
     }
@@ -33,6 +35,7 @@ export const getScore = (answers, lives) => {
 
   score.lives = _lives * LIVE_POINTS;
   score.total += score.lives;
+  score.slow = score.slow === 0 ? 0 : -score.slow;
 
   return score;
 };

@@ -1,13 +1,19 @@
 import IntroView from './intro-view';
-import greeting from '../greeting/greeting';
 import {renderWindow} from '../../utils';
+import App from '../../application';
 
-const intro = new IntroView();
+class IntroScreen {
+  constructor() {
+    this.view = new IntroView();
+  }
 
-intro.onIntroBtnClick = (evt) => {
-  evt.preventDefault();
+  init() {
+    renderWindow(this.view);
 
-  renderWindow(greeting);
-};
+    this.view.onIntroBtnClick = () => {
+      App.showGreeting();
+    };
+  }
+}
 
-export default intro;
+export default new IntroScreen();

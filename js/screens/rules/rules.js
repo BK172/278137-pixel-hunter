@@ -1,20 +1,24 @@
 import RulesView from './rules-view';
-import greeting from '../greeting/greeting';
 import {renderWindow} from '../../utils';
-import startGame from '../game/game';
+import App from '../../application';
 
-const rules = new RulesView();
+class RulesScreen {
+  constructor() {
+    this.view = new RulesView();
+  }
 
-rules.onRulesBtnClick = (evt) => {
-  evt.preventDefault();
+  init() {
+    renderWindow(this.view);
 
-  renderWindow(startGame());
-};
+    this.view.onRulesBtnClick = () => {
+      App.showGame();
+    };
 
-rules.onBtnBackClick = (evt) => {
-  evt.preventDefault();
+    this.view.onBtnBackClick = () => {
+      App.showGreeting();
+    };
+  }
+}
 
-  renderWindow(greeting);
-};
+export default new RulesScreen();
 
-export default rules;

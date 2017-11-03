@@ -1,76 +1,75 @@
+import App from '../../application';
+import GameModel from './game-model';
 import GameView from './game-view';
-import greeting from '../greeting/greeting';
-import stats from '../stats/stats';
 import {renderWindow} from '../../utils';
-import {TIME_LIMIT, initialData, games, resetGame} from '../../data/game-data';
+import {TIMER_INTERVAL, TIME_LIMIT, initialData, games, resetGame} from '../../data/game-data';
 import getTimer from '../../timer';
 
-const TIMER_INTERVAL = 1000;
+class GameScreen {
+  constructor(data = games) {
+    this.model = new GameModel(data);
+    this.view = new GameView(this.model);
 
-const changeLevel = (state) => {
-  const level = new GameView(games, state);
-  let timer;
+    this.view.onAnswer = (element, target) => this.onAnswer(element, target);
+    this.view.onBtnBackClick = (evt) => this.onBtnBackClick(evt);
+  }
 
-  const startTimer = () => {
+  init(state = initialData) {
+    this.model.update(state);
+    this.view.updateLevel();
+    renderWindow(this.view);
+    this.startTimer();
+  }
+
+  startTimer() {
     let time = TIME_LIMIT;
 
-    timer = setInterval(() => {
+    this.timer = setInterval(() => {
       time = getTimer(time).tick().time;
+      this.model.tick(time);
 
-      if (time < 1) {
-        stopTimer();
-        state.answers.splice(state.level, 1, `wrong`);
-        state.lives--;
-        chooseNextLevel();
+      if (this.model.state.time < 1) {
+        this.stopTimer();
+        this.model.answerWrong();
+        this.chooseNextLevel();
       }
 
-      state.time = time;
-      level.updateTime(state.time);
+      this.view.updateTime(this.model.state.time);
     }, TIMER_INTERVAL);
-  };
+  }
 
-  const stopTimer = () => {
-    clearInterval(timer);
-    state.time = TIME_LIMIT;
-  };
+  stopTimer() {
+    clearInterval(this.timer);
+    this.model.state.time = TIME_LIMIT;
+  }
 
-  const chooseNextLevel = () => {
-    if (state.lives >= 0 && state.level < games.length - 1) {
-      state.level++;
-      renderWindow(changeLevel(state));
+  chooseNextLevel() {
+    if (this.model.state.lives >= 0 && this.model.state.level < this.model.data.length - 1) {
+      this.model.nextLevel();
+      this.view.updateLevel();
+      this.startTimer();
     } else {
-      renderWindow(stats(state));
+      App.showStats(this.model.state);
     }
-  };
+  }
 
-  const checkAnswerTime = (timeOfAnswer) => {
-    if (timeOfAnswer > 20) {
-      state.answers.splice(state.level, 1, `fast`);
-    } else if (timeOfAnswer < 10) {
-      state.answers.splice(state.level, 1, `slow`);
-    } else {
-      state.answers.splice(state.level, 1, `correct`);
-    }
-  };
+  checkAnswer(checkCondition) {
+    const answerTime = this.model.state.time;
 
-  const checkAnswer = (checkCondition) => {
-    const answerTime = state.time;
-
-    stopTimer();
+    this.stopTimer();
 
     if (checkCondition) {
-      state.answers.splice(state.level, 1, `wrong`);
-      state.lives--;
+      this.model.answerWrong();
     } else {
-      checkAnswerTime(answerTime);
+      this.model.checkAnswerTime(answerTime);
     }
 
-    chooseNextLevel();
-  };
+    this.chooseNextLevel();
+  }
 
-  level.onAnswer = (element, target) => {
+  onAnswer(element, target) {
     const container = element.querySelector(`.game__content`);
-    const levelType = games[state.level].type;
+    const levelType = this.model.data[this.model.state.level].type;
 
     switch (levelType) {
       case `game1`:
@@ -79,23 +78,23 @@ const changeLevel = (state) => {
         if (answerElements.length === 2) {
           const result1 = container.querySelector(`input[name="question1"]:checked`);
           const result2 = container.querySelector(`input[name="question2"]:checked`);
-          const rightAnswer1 = games[state.level].questions[0].answer;
-          const rightAnswer2 = games[state.level].questions[1].answer;
+          const rightAnswer1 = this.model.data[this.model.state.level].questions[0].answer;
+          const rightAnswer2 = this.model.data[this.model.state.level].questions[1].answer;
 
           if (result1 && result2 && true) {
             const answer1 = result1.value === rightAnswer1 ? `correct` : `wrong`;
             const answer2 = result2.value === rightAnswer2 ? `correct` : `wrong`;
 
-            checkAnswer((answer1 === `wrong` || answer2 === `wrong`), state);
+            this.checkAnswer((answer1 === `wrong` || answer2 === `wrong`), this.model.state);
           }
         }
         break;
       case `game2`:
         if (target.name === `question1` && target.checked) {
-          const rightAnswer1 = games[state.level].questions[0].answer;
+          const rightAnswer1 = this.model.data[this.model.state.level].questions[0].answer;
           const answer1 = target.value === rightAnswer1 ? `correct` : `wrong`;
 
-          checkAnswer((answer1 === `wrong`), state);
+          this.checkAnswer((answer1 === `wrong`), this.model.state);
         }
         break;
       case `game3`:
@@ -111,31 +110,26 @@ const changeLevel = (state) => {
 
           for (let i = 0; i < answerItems.length; i++) {
             if (answerItems[i].classList.contains(`game__option--selected`)) {
-              const chosenImgType = games[state.level].questions[i].answer;
+              const chosenImgType = this.model.data[this.model.state.level].questions[i].answer;
 
               answer1 = chosenImgType === `paint` ? `correct` : `wrong`;
               break;
             }
           }
 
-          checkAnswer((answer1 === `wrong`), state);
+          this.checkAnswer((answer1 === `wrong`), this.model.state);
         }
         break;
     }
-  };
+  }
 
-  level.onBtnBackClick = (evt) => {
+  onBtnBackClick(evt) {
     evt.preventDefault();
 
-    stopTimer();
-    resetGame(state);
-    renderWindow(greeting);
-  };
+    this.stopTimer();
+    resetGame(this.model.state);
+    App.showGreeting();
+  }
+}
 
-  stopTimer();
-  startTimer();
-
-  return level;
-};
-
-export default () => changeLevel(initialData);
+export default new GameScreen();

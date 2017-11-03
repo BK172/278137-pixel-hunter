@@ -1,4 +1,3 @@
-import {renderWindow} from './utils';
-import intro from './screens/intro/intro';
+import App from './application';
 
-renderWindow(intro);
+App.showIntro();

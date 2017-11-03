@@ -1,18 +1,26 @@
 import StatsView from './stats-view';
-import greeting from '../greeting/greeting';
 import {renderWindow} from '../../utils';
+import App from '../../application';
 import {addToHistory, resetGame} from '../../data/game-data';
 
-export default (state) => {
-  const stats = new StatsView(state);
+class StatsScreen {
+  init(state) {
+    this.view = new StatsView(state);
+    renderWindow(this.view);
 
-  stats.onBtnBackClick = (evt) => {
-    evt.preventDefault();
+    this.view.onBtnBackClick = () => {
+      const history = {
+        answers: this.view.state.answers.slice(),
+        lives: this.view._correctLives,
+        score: this.view._score,
+        scoreCount: this.view._scoreCount
+      };
 
-    addToHistory(stats.history);
-    resetGame(state);
-    renderWindow(greeting);
-  };
+      addToHistory(history);
+      resetGame(state);
+      App.showGreeting();
+    };
+  }
+}
 
-  return stats;
-};
+export default new StatsScreen();
