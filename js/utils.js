@@ -1,8 +1,8 @@
 const mainElement = document.querySelector(`.central`);
 
-export const renderWindow = (screen) => {
-  mainElement.innerHTML = ``;
-  mainElement.appendChild(screen.element);
+export const renderWindow = (screen, container = mainElement) => {
+  container.innerHTML = ``;
+  container.appendChild(screen.element);
 };
 
 export const getElementFromTemplate = (template) => {

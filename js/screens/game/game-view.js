@@ -3,6 +3,7 @@ import getHeader from '../header';
 import footer from '../footer';
 import getStats from '../current-stats';
 import {initialData} from '../../data/game-data';
+import {renderWindow} from '../../utils';
 
 export default class GameView extends AbstractView {
   constructor(model) {
@@ -91,7 +92,7 @@ export default class GameView extends AbstractView {
   }
 
   updateLevel() {
-    updateView(new GameView(this.model), this.element);
+    renderWindow(new GameView(this.model), this.element);
     this.updateControls();
   }
 
