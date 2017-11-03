@@ -23,10 +23,11 @@ export const resetGame = (state) => {
 export let gameHistory = [];
 
 export const addToHistory = (data) => {
-  gameHistory.push(data);
+  gameHistory.unshift(data);
 
   if (gameHistory.length > 2) {
-    gameHistory.shift();
+    gameHistory.pop();
+    gameHistory.unshift();
   }
 
   return gameHistory;
