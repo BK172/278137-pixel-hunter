@@ -18,6 +18,7 @@ class GameScreen {
     this.model.update(state);
     this.view.updateLevel();
     renderWindow(this.view);
+    this.stopTimer();
     this.startTimer();
   }
 
@@ -34,6 +35,10 @@ class GameScreen {
         this.chooseNextLevel();
       }
 
+      if (this.model.state.time === 5) {
+        this.view.flickTimer();
+      }
+
       this.view.updateTime(this.model.state.time);
     }, TIMER_INTERVAL);
   }
@@ -46,8 +51,7 @@ class GameScreen {
   chooseNextLevel() {
     if (this.model.state.lives >= 0 && this.model.state.level < this.model.data.length - 1) {
       this.model.nextLevel();
-      this.view.updateLevel();
-      this.startTimer();
+      App.showGame(this.model.state);
     } else {
       App.showStats(this.model.state);
     }
@@ -123,9 +127,7 @@ class GameScreen {
     }
   }
 
-  onBtnBackClick(evt) {
-    evt.preventDefault();
-
+  onBtnBackClick() {
     this.stopTimer();
     resetGame(this.model.state);
     App.showGreeting();

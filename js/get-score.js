@@ -4,7 +4,7 @@ const SLOW_POINTS = 50;
 const LIVE_POINTS = 50;
 
 export const getScore = (answers, lives) => {
-  const _lives = lives === -1 ? 0 : lives;
+  const livesFixed = lives === -1 ? 0 : lives;
 
   let score = {
     correct: 0,
@@ -33,7 +33,7 @@ export const getScore = (answers, lives) => {
     }
   }
 
-  score.lives = _lives * LIVE_POINTS;
+  score.lives = livesFixed * LIVE_POINTS;
   score.total += score.lives;
   score.slow = score.slow === 0 ? 0 : -score.slow;
 

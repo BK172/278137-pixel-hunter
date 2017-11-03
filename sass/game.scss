@@ -15,6 +15,22 @@
   top: 25px;
   left: 50%;
   transform: translateX(-50%);
+
+  &--animated {
+    animation: flick 0.5s linear infinite;
+  }
+}
+
+@keyframes flick {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .game__lives {
