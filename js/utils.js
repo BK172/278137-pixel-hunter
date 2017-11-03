@@ -1,4 +1,4 @@
-const mainElement = document.querySelector(`.central`);
+export const mainElement = document.querySelector(`.central`);
 
 export const renderWindow = (screen, container = mainElement) => {
   container.innerHTML = ``;
