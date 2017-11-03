@@ -4,11 +4,6 @@ import footer from '../footer';
 import getStats from '../current-stats';
 import {initialData} from '../../data/game-data';
 
-const updateView = (container, view) => {
-  container.innerHTML = ``;
-  container.appendChild(view.element);
-};
-
 export default class GameView extends AbstractView {
   constructor(model) {
     super();
@@ -96,7 +91,7 @@ export default class GameView extends AbstractView {
   }
 
   updateLevel() {
-    updateView(this.element, new GameView(this.model));
+    updateView(new GameView(this.model), this.element);
     this.updateControls();
   }
 
@@ -116,6 +111,10 @@ export default class GameView extends AbstractView {
 
   updateTime(time) {
     this.timeElement.textContent = time;
+  }
+
+  flickTimer() {
+    this.timeElement.classList.add(`game__timer--animated`);
   }
 
   onAnswer() {

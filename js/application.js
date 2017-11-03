@@ -17,8 +17,8 @@ export default class Application {
     rulesScreen.init();
   }
 
-  static showGame() {
-    gameScreen.init();
+  static showGame(state = initialData) {
+    gameScreen.init(state);
   }
 
   static showStats(state) {
