@@ -5,15 +5,24 @@ import {addToHistory, resetGame} from '../../data/game-data';
 
 class StatsScreen {
   init(state) {
-    this.view = new StatsView(state);
+    let gameStatus;
+
+    if (state.lives >= 0 && state.level === state.answers.length - 1) {
+      gameStatus = `win`;
+    } else {
+      gameStatus = `fail`;
+    }
+
+    this.view = new StatsView(state, gameStatus);
     renderWindow(this.view);
 
     this.view.onBtnBackClick = () => {
       const history = {
         answers: this.view.state.answers.slice(),
-        lives: this.view._correctLives,
-        score: this.view._score,
-        scoreCount: this.view._scoreCount
+        lives: this.view.correctLives,
+        scores: this.view.scores,
+        scoreCount: this.view.scoreCount,
+        status: gameStatus
       };
 
       addToHistory(history);

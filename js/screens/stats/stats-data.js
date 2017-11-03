@@ -7,6 +7,5 @@ export default {
     speed: `Бонус за скорость`,
     lives: `Бонус за жизни`,
     fine: `Штраф за медлительность`
-  },
-  statusFail: `FAIL`
+  }
 };
