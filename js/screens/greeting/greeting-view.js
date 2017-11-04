@@ -25,14 +25,12 @@ export default class GreetingView extends AbstractView {
   }
 
   hide() {
-    this.element.classList.add(`hidden`);
-    this.element.classList.add(`fadeIn`);
-    this.element.classList.add(`fadeOut`);
+    this.element.classList.add(`hidden`, `fadeOut`);
   }
 
   show() {
-    this.element.classList.remove(`hidden`);
-    this.element.classList.remove(`fadeOut`);
+    this.element.classList.remove(`hidden`, `fadeOut`);
+    this.element.classList.add(`fadeIn`);
   }
 
   onGreetingBtnClick() {

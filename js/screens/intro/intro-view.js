@@ -20,16 +20,10 @@ export default class IntroView extends AbstractView {
 
   hide() {
     this.element.classList.remove(`fadeIn`);
-    this.element.ontransitionend = this.onElementHidden;
   }
 
   show() {
-    this.element.classList.add(`stealth`);
     mainElement.appendChild(this.element);
     this.element.classList.add(`fadeIn`);
-  }
-
-  onElementHidden() {
-    this.view.element.remove();
   }
 }
