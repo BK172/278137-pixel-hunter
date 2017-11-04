@@ -1,13 +1,15 @@
-import introScreen from './screens/intro/intro';
-import greetingScreen from './screens/greeting/greeting';
-import rulesScreen from './screens/rules/rules';
-import gameScreen from './screens/game/game';
-import statsScreen from './screens/stats/stats';
+import IntroScreen from './screens/intro/intro';
+import GreetingScreen from './screens/greeting/greeting';
+import RulesScreen from './screens/rules/rules';
+import GameScreen from './screens/game/game';
+import StatsScreen from './screens/stats/stats';
+import Loader from './loader';
+import adapt from './data/adapter';
 import {initialData} from './data/game-data';
+import {preloadImages} from './utils';
 
 const ControllerId = {
-  INTRO: ``,
-  GREETING: `greeting`,
+  GREETING: ``,
   RULES: `rules`,
   GAME: `game`,
   STATS: `stats`
@@ -25,37 +27,32 @@ const loadState = (dataString) => {
   }
 };
 
-const routes = {
-  [ControllerId.INTRO]: introScreen,
-  [ControllerId.GREETING]: greetingScreen,
-  [ControllerId.RULES]: rulesScreen,
-  [ControllerId.GAME]: gameScreen,
-  [ControllerId.STATS]: statsScreen
-};
-
 export default class Application {
-  static init() {
-    const hashChangeHandler = () => {
+  static init(gameData) {
+    this.routes = {
+      [ControllerId.GREETING]: GreetingScreen,
+      [ControllerId.RULES]: RulesScreen,
+      [ControllerId.GAME]: new GameScreen(gameData),
+      [ControllerId.STATS]: StatsScreen
+    };
+
+    const onWindowHasChange = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
 
       this.changeHash(id, data);
     };
 
-    window.onhashchange = hashChangeHandler;
-    hashChangeHandler();
+    window.onhashchange = onWindowHasChange;
+    onWindowHasChange();
   }
 
   static changeHash(id, data) {
-    const controller = routes[id];
+    const controller = this.routes[id];
 
     if (controller) {
       controller.init(loadState(data));
     }
-  }
-
-  static showIntro() {
-    location.hash = ControllerId.INTRO;
   }
 
   static showGreeting() {
@@ -75,4 +72,13 @@ export default class Application {
   }
 }
 
-Application.init();
+GreetingScreen.init();
+GreetingScreen.hide();
+IntroScreen.show();
+Loader.loadData().
+    then(adapt).
+    then((gameData) => preloadImages(gameData)).
+    then((gameData) => Application.init(gameData)).
+    then(() => GreetingScreen.show()).
+    then(() => IntroScreen.hide()).
+    catch(window.console.error);

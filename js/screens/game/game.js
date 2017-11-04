@@ -1,36 +1,39 @@
 import App from '../../application';
 import GameModel from './game-model';
 import GameView from './game-view';
-import {renderWindow} from '../../utils';
-import {TIMER_INTERVAL, TIME_LIMIT, initialData, games, resetGame} from '../../data/game-data';
+import {renderWindow, mainElement} from '../../utils';
+import {TIMER_INTERVAL, TIME_LIMIT, initialData, resetGame} from '../../data/game-data';
 import getTimer from '../../timer';
+import PopupView from '../popup-view';
 
 class GameScreen {
-  constructor(data = games) {
+  constructor(data) {
     this.model = new GameModel(data);
     this.view = new GameView(this.model);
+    this.view.popup = new PopupView();
 
     this.view.onAnswer = (element, target) => this.onAnswer(element, target);
-    this.view.onBtnBackClick = (evt) => this.onBtnBackClick(evt);
+    this.view.onBtnBackClick = () => this.onBtnBackClick();
+    this.view.popup.onPopupBtnYes = () => this.onPopupBtnYes();
+    this.view.popup.onPopupBtnNo = () => this.onPopupBtnNo();
   }
 
   init(state = initialData) {
     this.model.update(state);
     this.view.updateLevel();
     renderWindow(this.view);
-    this.stopTimer();
+    mainElement.appendChild(this.view.popup.element);
     this.startTimer();
   }
 
-  startTimer() {
-    let time = TIME_LIMIT;
-
+  startTimer(time = TIME_LIMIT) {
     this.timer = setInterval(() => {
       time = getTimer(time).tick().time;
       this.model.tick(time);
 
       if (this.model.state.time < 1) {
         this.stopTimer();
+        this.model.tick(TIME_LIMIT);
         this.model.answerWrong();
         this.chooseNextLevel();
       }
@@ -45,7 +48,6 @@ class GameScreen {
 
   stopTimer() {
     clearInterval(this.timer);
-    this.model.state.time = TIME_LIMIT;
   }
 
   chooseNextLevel() {
@@ -61,6 +63,7 @@ class GameScreen {
     const answerTime = this.model.state.time;
 
     this.stopTimer();
+    this.model.tick(TIME_LIMIT);
 
     if (checkCondition) {
       this.model.answerWrong();
@@ -129,9 +132,19 @@ class GameScreen {
 
   onBtnBackClick() {
     this.stopTimer();
+    this.view.popup.showPopup();
+  }
+
+  onPopupBtnYes() {
     resetGame(this.model.state);
+    this.view.popup.hidePopup();
     App.showGreeting();
+  }
+
+  onPopupBtnNo() {
+    this.view.popup.hidePopup();
+    this.startTimer(this.model.state.time);
   }
 }
 
-export default new GameScreen();
+export default GameScreen;

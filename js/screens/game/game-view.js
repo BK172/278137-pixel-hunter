@@ -101,13 +101,13 @@ export default class GameView extends AbstractView {
     const gameForm = this.element.querySelector(`.game__content`);
     const btnBack = this.element.querySelector(`.back`);
 
-    const onGameFormClick = (evt) => {
-      const target = evt.target;
-      this.onAnswer(this.element, target);
+    gameForm.onclick = (evt) => {
+      this.onAnswer(this.element, evt.target);
     };
 
-    gameForm.addEventListener(`click`, onGameFormClick);
-    btnBack.addEventListener(`click`, this.onBtnBackClick);
+    btnBack.onclick = () => {
+      this.onBtnBackClick();
+    };
   }
 
   updateTime(time) {
