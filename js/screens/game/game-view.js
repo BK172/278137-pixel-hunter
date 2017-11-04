@@ -98,14 +98,14 @@ export default class GameView extends AbstractView {
 
   updateControls() {
     this.timeElement = this.element.querySelector(`.game__timer`);
-    const gameForm = this.element.querySelector(`.game__content`);
-    const btnBack = this.element.querySelector(`.back`);
+    const gameFormElement = this.element.querySelector(`.game__content`);
+    const btnBackElement = this.element.querySelector(`.back`);
 
-    gameForm.onclick = (evt) => {
+    gameFormElement.onclick = (evt) => {
       this.onAnswer(this.element, evt.target);
     };
 
-    btnBack.onclick = () => {
+    btnBackElement.onclick = () => {
       this.onBtnBackClick();
     };
   }

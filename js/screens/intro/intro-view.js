@@ -15,15 +15,15 @@ export default class IntroView extends AbstractView {
   }
 
   bind() {
-
+    this.element.classList.add(`fade`);
   }
 
   hide() {
-    this.element.classList.remove(`fadeIn`);
+    this.element.style.opacity = 0;
   }
 
   show() {
     mainElement.appendChild(this.element);
-    this.element.classList.add(`fadeIn`);
+    this.element.style.opacity = 1;
   }
 }

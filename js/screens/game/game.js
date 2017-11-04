@@ -75,22 +75,22 @@ class GameScreen {
   }
 
   onAnswer(element, target) {
-    const container = element.querySelector(`.game__content`);
+    const containerElement = element.querySelector(`.game__content`);
     const levelType = this.model.data[this.model.state.level].type;
 
     switch (levelType) {
       case `game1`:
-        const answerElements = container.querySelectorAll(`.game__answer :checked`);
+        const checkedElements = containerElement.querySelectorAll(`.game__answer :checked`);
 
-        if (answerElements.length === 2) {
-          const result1 = container.querySelector(`input[name="question1"]:checked`);
-          const result2 = container.querySelector(`input[name="question2"]:checked`);
+        if (checkedElements.length === 2) {
+          const result1Element = containerElement.querySelector(`input[name="question1"]:checked`);
+          const result2Element = containerElement.querySelector(`input[name="question2"]:checked`);
           const rightAnswer1 = this.model.data[this.model.state.level].questions[0].answer;
           const rightAnswer2 = this.model.data[this.model.state.level].questions[1].answer;
 
-          if (result1 && result2 && true) {
-            const answer1 = result1.value === rightAnswer1 ? `correct` : `wrong`;
-            const answer2 = result2.value === rightAnswer2 ? `correct` : `wrong`;
+          if (result1Element && result2Element && true) {
+            const answer1 = result1Element.value === rightAnswer1 ? `correct` : `wrong`;
+            const answer2 = result2Element.value === rightAnswer2 ? `correct` : `wrong`;
 
             this.checkAnswer((answer1 === `wrong` || answer2 === `wrong`), this.model.state);
           }
@@ -105,18 +105,18 @@ class GameScreen {
         }
         break;
       case `game3`:
-        const answerItems = container.querySelectorAll(`.game__option`);
+        const answerElements = containerElement.querySelectorAll(`.game__option`);
         let answer1;
 
         if (target.parentNode.classList.contains(`game__option`)) {
-          for (let item of answerItems) {
+          for (let item of answerElements) {
             item.classList.remove(`game__option--selected`);
           }
 
           target.parentNode.classList.add(`game__option--selected`);
 
-          for (let i = 0; i < answerItems.length; i++) {
-            if (answerItems[i].classList.contains(`game__option--selected`)) {
+          for (let i = 0; i < answerElements.length; i++) {
+            if (answerElements[i].classList.contains(`game__option--selected`)) {
               const chosenImgType = this.model.data[this.model.state.level].questions[i].answer;
 
               answer1 = chosenImgType === `paint` ? `correct` : `wrong`;

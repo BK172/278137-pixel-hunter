@@ -17,20 +17,23 @@ export default class GreetingView extends AbstractView {
   }
 
   bind() {
-    const greetingBtn = this.element.querySelector(`.greeting__continue`);
+    const greetingBtnElement = this.element.querySelector(`.greeting__continue`);
 
-    greetingBtn.onclick = () => {
+    greetingBtnElement.onclick = () => {
       this.onGreetingBtnClick();
     };
+
+    this.element.classList.add(`fade`);
   }
 
   hide() {
-    this.element.classList.add(`hidden`, `fadeOut`);
+    this.element.classList.add(`hidden`);
+    this.element.style.opacity = 0;
   }
 
   show() {
-    this.element.classList.remove(`hidden`, `fadeOut`);
-    this.element.classList.add(`fadeIn`);
+    this.element.classList.remove(`hidden`);
+    this.element.style.opacity = 1;
   }
 
   onGreetingBtnClick() {
