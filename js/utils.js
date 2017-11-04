@@ -7,6 +7,7 @@ export const renderWindow = (screen, container = mainElement) => {
 
 export const getElementFromTemplate = (template) => {
   const newElement = document.createElement(`div`);
+
   newElement.innerHTML = template;
 
   return newElement;

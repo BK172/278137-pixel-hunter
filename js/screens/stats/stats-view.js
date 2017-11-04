@@ -2,60 +2,54 @@ import AbstractView from '../../abstract-view';
 import getHeader from '../header';
 import footer from '../footer';
 import getStats from '../current-stats';
-import {getScore, getScoreCount} from '../../get-score';
-import {gameHistory} from '../../data/game-data';
 import statsData from './stats-data';
 
 export default class StatsView extends AbstractView {
-  constructor(state, status) {
+  constructor(history) {
     super();
-    this.state = state;
-    this.status = status;
-    this.scores = getScore(this.state.answers, this.state.lives);
-    this.scoreCount = getScoreCount(this.state.answers);
-    this.correctLives = this.state.lives === -1 ? 0 : this.state.lives;
+    this.history = history;
   }
 
   get template() {
-    const getTemplate = (answers, lives, score, scoreCount, status, resultNumber = 1) => {
+    const getTemplate = (history, resultNumber = 1) => {
       let template = `<table class="result__table">
         <tr>
           <td class="result__number">${resultNumber}.</td>
           <td colspan="2">
-            ${getStats(answers)}
+            ${getStats(history.answers)}
           </td>
           <td class="result__points">×&nbsp;100</td>`;
 
-      if (status === `fail`) {
+      if (history.status === `fail`) {
         template += `<td class="result__total">${statsData.title.fail}</td>
             </tr>
           </table>`;
       } else {
-        template += `<td class="result__total">${score.correct}</td>
+        template += `<td class="result__total">${history.scores.correct}</td>
             </tr>
             <tr>
               <td></td>
               <td class="result__extra">${statsData.bonus.speed}</td>
-              <td class="result__extra">${scoreCount.fast}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+              <td class="result__extra">${history.scoreCount.fast}&nbsp;<span class="stats__result stats__result--fast"></span></td>
               <td class="result__points">×&nbsp;50</td>
-              <td class="result__total">${score.fast}</td>
+              <td class="result__total">${history.scores.fast}</td>
             </tr>
             <tr>
               <td></td>
               <td class="result__extra">${statsData.bonus.lives}</td>
-              <td class="result__extra">${lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
+              <td class="result__extra">${history.lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
               <td class="result__points">×&nbsp;50</td>
-              <td class="result__total">${score.lives}</td>
+              <td class="result__total">${history.scores.lives}</td>
             </tr>
             <tr>
               <td></td>
               <td class="result__extra">${statsData.bonus.fine}</td>
-              <td class="result__extra">${scoreCount.slow}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+              <td class="result__extra">${history.scoreCount.slow}&nbsp;<span class="stats__result stats__result--slow"></span></td>
               <td class="result__points">×&nbsp;50</td>
-              <td class="result__total">${score.slow}</td>
+              <td class="result__total">${history.scores.slow}</td>
             </tr>
             <tr>
-              <td colspan="5" class="result__total  result__total--final">${score.total}</td>
+              <td colspan="5" class="result__total  result__total--final">${history.scores.total}</td>
             </tr>
           </table>`;
       }
@@ -67,7 +61,7 @@ export default class StatsView extends AbstractView {
       let template = ``;
 
       for (let i = 0; i < history.length; i++) {
-        template += getTemplate(history[i].answers, history[i].lives, history[i].scores, history[i].scoreCount, history[i].status, i + 2);
+        template += getTemplate(history[i], i + 1);
       }
 
       return template;
@@ -76,15 +70,13 @@ export default class StatsView extends AbstractView {
     let statsTemplate = `${getHeader()}
       <div class="result">`;
 
-    if (this.status === `win`) {
+    if (this.history[0].status === `win`) {
       statsTemplate += `<h1>${statsData.title.win}</h1>`;
-      statsTemplate += getTemplate(this.state.answers, this.correctLives, this.scores, this.scoreCount, this.status);
-      statsTemplate += getTemplateHistory(gameHistory);
     } else {
       statsTemplate += `<h1>${statsData.title.fail}</h1>`;
-      statsTemplate += getTemplate(this.state.answers, this.correctLives, this.scores, this.scoreCount, this.status);
     }
 
+    statsTemplate += getTemplateHistory(this.history);
     statsTemplate += `</div>
       ${footer}`;
 

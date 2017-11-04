@@ -4,7 +4,7 @@ import GameView from './game-view';
 import {renderWindow, mainElement} from '../../utils';
 import {TIMER_INTERVAL, TIME_LIMIT, initialData, resetGame} from '../../data/game-data';
 import getTimer from '../../timer';
-import PopupView from '../popup-view';
+import PopupView from '../popup/popup-view';
 
 class GameScreen {
   constructor(data) {

@@ -1,9 +1,9 @@
-const SERVER_URL = `https://es.dump.academy/pixel-hunter/questions`;
+const SERVER_URL = `https://es.dump.academy/pixel-hunter`;
 const DEFAULT_NAME = `bk172`;
 
 export default class Loader {
   static loadData() {
-    return fetch(`${SERVER_URL}`).then((res) => res.json());
+    return fetch(`${SERVER_URL}/questions`).then((res) => res.json());
   }
 
   static loadResults(name = DEFAULT_NAME) {

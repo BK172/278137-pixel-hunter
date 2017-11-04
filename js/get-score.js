@@ -1,7 +1,9 @@
-const CORRECT_POINTS = 100;
-const FAST_POINTS = 50;
-const SLOW_POINTS = 50;
-const LIVE_POINTS = 50;
+const Points = {
+  CORRECT: 100,
+  FAST: 50,
+  SLOW: 50,
+  LIVE: 50
+};
 
 export const getScore = (answers, lives) => {
   const livesFixed = lives === -1 ? 0 : lives;
@@ -17,23 +19,23 @@ export const getScore = (answers, lives) => {
   for (let item of answers) {
     switch (item) {
       case `correct`:
-        score.correct += CORRECT_POINTS;
-        score.total += CORRECT_POINTS;
+        score.correct += Points.CORRECT;
+        score.total += Points.CORRECT;
         break;
       case `fast`:
-        score.correct += CORRECT_POINTS;
-        score.fast += FAST_POINTS;
-        score.total += CORRECT_POINTS + FAST_POINTS;
+        score.correct += Points.CORRECT;
+        score.fast += Points.FAST;
+        score.total += Points.CORRECT + Points.FAST;
         break;
       case `slow`:
-        score.correct += CORRECT_POINTS;
-        score.slow += SLOW_POINTS;
-        score.total += CORRECT_POINTS - SLOW_POINTS;
+        score.correct += Points.CORRECT;
+        score.slow += Points.SLOW;
+        score.total += Points.CORRECT - Points.SLOW;
         break;
     }
   }
 
-  score.lives = livesFixed * LIVE_POINTS;
+  score.lives = livesFixed * Points.LIVE;
   score.total += score.lives;
   score.slow = score.slow === 0 ? 0 : -score.slow;
 
