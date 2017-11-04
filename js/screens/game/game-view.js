@@ -23,7 +23,7 @@ export default class GameView extends AbstractView {
         gameTemplate += `
         <form class="game__content">
           <div class="game__option">
-            <img src="${this.games.questions[0].url}" alt="${this.games.questions[0].title}" width="${this.games.questions[0].width}" height="${this.games.questions[0].height}"/>
+            <img src="${this.games.questions[0].url}" alt="Option 1" width="${this.games.questions[0].width}" height="${this.games.questions[0].height}"/>
             <label class="game__answer game__answer--photo">
               <input name="question1" type="radio" value="photo"/>
               <span>Фото</span>
@@ -34,7 +34,7 @@ export default class GameView extends AbstractView {
             </label>
           </div>
           <div class="game__option">
-            <img src="${this.games.questions[1].url}" alt="${this.games.questions[1].title}" width="${this.games.questions[1].width}" height="${this.games.questions[1].height}"/>
+            <img src="${this.games.questions[1].url}" alt="Option 2" width="${this.games.questions[1].width}" height="${this.games.questions[1].height}"/>
             <label class="game__answer  game__answer--photo">
               <input name="question2" type="radio" value="photo"/>
               <span>Фото</span>
@@ -50,7 +50,7 @@ export default class GameView extends AbstractView {
         gameTemplate += `
         <form class="game__content  game__content--wide">
           <div class="game__option">
-            <img src="${this.games.questions[0].url}" alt="${this.games.questions[0].title}" width="${this.games.questions[0].width}" height="${this.games.questions[0].height}"/>
+            <img src="${this.games.questions[0].url}" alt="Option 1" width="${this.games.questions[0].width}" height="${this.games.questions[0].height}"/>
             <label class="game__answer  game__answer--photo">
               <input name="question1" type="radio" value="photo"/>
               <span>Фото</span>
@@ -66,13 +66,13 @@ export default class GameView extends AbstractView {
         gameTemplate += `
         <form class="game__content  game__content--triple">
           <div class="game__option" data-option="option1">
-            <img src="${this.games.questions[0].url}" alt="${this.games.questions[0].title}" width="${this.games.questions[0].width}" height="${this.games.questions[0].height}"/>
+            <img src="${this.games.questions[0].url}" alt="Option 1" width="${this.games.questions[0].width}" height="${this.games.questions[0].height}"/>
           </div>
           <div class="game__option  game__option--selected" data-option="option2">
-            <img src="${this.games.questions[1].url}" alt="${this.games.questions[1].title}" width="${this.games.questions[1].width}" height="${this.games.questions[1].height}"/>
+            <img src="${this.games.questions[1].url}" alt="Option 2" width="${this.games.questions[1].width}" height="${this.games.questions[1].height}"/>
           </div>
           <div class="game__option" data-option="option3">
-            <img src="${this.games.questions[2].url}" alt="${this.games.questions[2].title}" width="${this.games.questions[2].width}" height="${this.games.questions[2].height}"/>
+            <img src="${this.games.questions[2].url}" alt="Option 3" width="${this.games.questions[2].width}" height="${this.games.questions[2].height}"/>
           </div>
         </form>`;
         break;
