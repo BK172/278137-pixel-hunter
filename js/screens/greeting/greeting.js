@@ -14,6 +14,14 @@ class GreetingScreen {
       App.showRules();
     };
   }
+
+  hide() {
+    this.view.hide();
+  }
+
+  show() {
+    this.view.show();
+  }
 }
 
 export default new GreetingScreen();

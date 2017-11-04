@@ -1,18 +1,16 @@
 import IntroView from './intro-view';
-import {renderWindow} from '../../utils';
-import App from '../../application';
 
 class IntroScreen {
   constructor() {
     this.view = new IntroView();
   }
 
-  init() {
-    renderWindow(this.view);
+  hide() {
+    this.view.hide();
+  }
 
-    this.view.onIntroBtnClick = () => {
-      App.showGreeting();
-    };
+  show() {
+    this.view.show();
   }
 }
 

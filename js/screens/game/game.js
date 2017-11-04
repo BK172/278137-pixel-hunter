@@ -2,12 +2,12 @@ import App from '../../application';
 import GameModel from './game-model';
 import GameView from './game-view';
 import {renderWindow, mainElement} from '../../utils';
-import {TIMER_INTERVAL, TIME_LIMIT, initialData, games, resetGame} from '../../data/game-data';
+import {TIMER_INTERVAL, TIME_LIMIT, initialData, resetGame} from '../../data/game-data';
 import getTimer from '../../timer';
 import PopupView from '../popup-view';
 
 class GameScreen {
-  constructor(data = games) {
+  constructor(data) {
     this.model = new GameModel(data);
     this.view = new GameView(this.model);
     this.view.popup = new PopupView();
@@ -147,4 +147,4 @@ class GameScreen {
   }
 }
 
-export default new GameScreen();
+export default GameScreen;

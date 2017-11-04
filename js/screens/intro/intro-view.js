@@ -1,6 +1,7 @@
 import AbstractView from '../../abstract-view';
 import footer from '../footer';
 import data from './intro-data';
+import {mainElement} from '../../utils';
 
 export default class IntroView extends AbstractView {
   get template() {
@@ -14,14 +15,21 @@ export default class IntroView extends AbstractView {
   }
 
   bind() {
-    const introBtn = this.element.querySelector(`.intro__asterisk`);
 
-    introBtn.onclick = () => {
-      this.onIntroBtnClick();
-    };
   }
 
-  onIntroBtnClick() {
+  hide() {
+    this.element.classList.remove(`fadeIn`);
+    this.element.ontransitionend = this.onElementHidden;
+  }
 
+  show() {
+    this.element.classList.add(`stealth`);
+    mainElement.appendChild(this.element);
+    this.element.classList.add(`fadeIn`);
+  }
+
+  onElementHidden() {
+    this.view.element.remove();
   }
 }
