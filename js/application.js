@@ -16,12 +16,12 @@ const ControllerId = {
 };
 
 const saveState = (state) => {
-  return JSON.stringify(state);
+  return btoa(JSON.stringify(state));
 };
 
 const loadState = (dataString) => {
   try {
-    return JSON.parse(dataString);
+    return JSON.parse(atob(dataString));
   } catch (err) {
     return initialData;
   }

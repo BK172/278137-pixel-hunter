@@ -26,6 +26,7 @@ export default class GameModel {
     } else {
       this.state.answers.splice(this.state.level, 1, `correct`);
     }
+
     this.update(this.state);
   }
 

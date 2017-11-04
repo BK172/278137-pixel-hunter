@@ -1,10 +1,28 @@
 import StatsView from './stats-view';
 import {renderWindow} from '../../utils';
 import App from '../../application';
-import {addToHistory, resetGame} from '../../data/game-data';
+import {resetGame} from '../../data/game-data';
+import Loader from '../../loader';
+import {getScore, getScoreCount} from '../../get-score';
 
 class StatsScreen {
   init(state) {
+    const renderStats = (data) => {
+      data.reverse();
+
+      if (data.length > 3) {
+        data = data.slice(0, 3);
+      }
+
+      this.view = new StatsView(data);
+      renderWindow(this.view);
+
+      this.view.onBtnBackClick = () => {
+        resetGame(state);
+        App.showGreeting();
+      };
+    };
+
     let gameStatus;
 
     if (state.lives >= 0 && state.level === state.answers.length - 1) {
@@ -13,22 +31,15 @@ class StatsScreen {
       gameStatus = `fail`;
     }
 
-    this.view = new StatsView(state, gameStatus);
-    renderWindow(this.view);
+    state.status = gameStatus;
+    state.scores = getScore(state.answers, state.lives);
+    state.scoreCount = getScoreCount(state.answers);
+    state.lives = state.lives === -1 ? 0 : state.lives;
 
-    this.view.onBtnBackClick = () => {
-      const history = {
-        answers: this.view.state.answers.slice(),
-        lives: this.view.correctLives,
-        scores: this.view.scores,
-        scoreCount: this.view.scoreCount,
-        status: gameStatus
-      };
-
-      addToHistory(history);
-      resetGame(state);
-      App.showGreeting();
-    };
+    Loader.saveResults(state).then(() => {
+      Loader.loadResults().
+          then((data) => renderStats(data));
+    });
   }
 }
 

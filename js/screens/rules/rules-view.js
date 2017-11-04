@@ -22,15 +22,13 @@ export default class RulesView extends AbstractView {
     const rulesInput = this.element.querySelector(`.rules__input`);
     const btnBack = this.element.querySelector(`.back`);
 
-    const onRulesInput = (evt) => {
-      if (evt.target.value === ``) {
+    rulesInput.oninput = () => {
+      if (rulesInput.value === ``) {
         rulesBtn.setAttribute(`disabled`, ``);
       } else {
         rulesBtn.removeAttribute(`disabled`);
       }
     };
-
-    rulesInput.addEventListener(`input`, onRulesInput);
 
     rulesBtn.onclick = (evt) => {
       evt.preventDefault();

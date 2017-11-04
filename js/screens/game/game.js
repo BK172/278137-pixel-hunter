@@ -4,7 +4,7 @@ import GameView from './game-view';
 import {renderWindow, mainElement} from '../../utils';
 import {TIMER_INTERVAL, TIME_LIMIT, initialData, resetGame} from '../../data/game-data';
 import getTimer from '../../timer';
-import PopupView from '../popup-view';
+import PopupView from '../popup/popup-view';
 
 class GameScreen {
   constructor(data) {
@@ -108,12 +108,12 @@ class GameScreen {
         const answerItems = container.querySelectorAll(`.game__option`);
         let answer1;
 
-        if (target.classList.contains(`game__option`)) {
+        if (target.parentNode.classList.contains(`game__option`)) {
           for (let item of answerItems) {
             item.classList.remove(`game__option--selected`);
           }
 
-          target.classList.add(`game__option--selected`);
+          target.parentNode.classList.add(`game__option--selected`);
 
           for (let i = 0; i < answerItems.length; i++) {
             if (answerItems[i].classList.contains(`game__option--selected`)) {

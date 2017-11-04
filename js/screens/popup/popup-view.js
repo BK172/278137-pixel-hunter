@@ -6,31 +6,43 @@ export default class PopupView extends AbstractView {
       <p class="popup__text">Внимание! Текущий прогресс будет потерян.<br>
         Вы уверены, что хотите покинуть игру?</p>
       <div class="popup__container">
-        <a class="popup__btn  popup__btn--yes" href="#">Да</a>
-        <a class="popup__btn  popup__btn--no" href="#">Нет</a>
+        <a class="popup__btn  popup__btn--yes">Да</a>
+        <a class="popup__btn  popup__btn--no">Нет</a>
       </div>
-      <div class="popup__shadow"></div>
-    </div>`;
+    </div>
+    <div class="overlay hidden"></div>`;
   }
 
   bind() {
-    const btnYesElement = this.element.querySelector(`.popup__btn--yes`);
-    const btnNoElement = this.element.querySelector(`.popup__btn--no`);
+    this.popupElement = this.element.querySelector(`.popup`);
+    this.overlayElement = this.element.querySelector(`.overlay`);
+    const btnYesElement = this.popupElement.querySelector(`.popup__btn--yes`);
+    const btnNoElement = this.popupElement.querySelector(`.popup__btn--no`);
 
     btnYesElement.onclick = () => {
-      this.onBtnYesClick();
+      this.onPopupBtnYes();
     };
 
     btnNoElement.onclick = () => {
-      this.onBtnNoClick();
+      this.onPopupBtnNo();
     };
   }
 
-  onBtnYesClick() {
+  showPopup() {
+    this.popupElement.classList.remove(`hidden`);
+    this.overlayElement.classList.remove(`hidden`);
+  }
+
+  hidePopup() {
+    this.popupElement.classList.add(`hidden`);
+    this.overlayElement.classList.add(`hidden`);
+  }
+
+  onPopupBtnYes() {
 
   }
 
-  onBtnNoClick() {
+  onPopupBtnNo() {
 
   }
 }
