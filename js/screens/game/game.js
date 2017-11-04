@@ -108,12 +108,12 @@ class GameScreen {
         const answerItems = container.querySelectorAll(`.game__option`);
         let answer1;
 
-        if (target.classList.contains(`game__option`)) {
+        if (target.parentNode.classList.contains(`game__option`)) {
           for (let item of answerItems) {
             item.classList.remove(`game__option--selected`);
           }
 
-          target.classList.add(`game__option--selected`);
+          target.parentNode.classList.add(`game__option--selected`);
 
           for (let i = 0; i < answerItems.length; i++) {
             if (answerItems[i].classList.contains(`game__option--selected`)) {
