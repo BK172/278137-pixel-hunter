@@ -57,16 +57,6 @@ export default class StatsView extends AbstractView {
       return template;
     };
 
-    const getTemplateHistory = (history) => {
-      let template = ``;
-
-      for (let i = 0; i < history.length; i++) {
-        template += getTemplate(history[i], i + 1);
-      }
-
-      return template;
-    };
-
     let statsTemplate = `${getHeader()}
       <div class="result">`;
 
@@ -76,7 +66,7 @@ export default class StatsView extends AbstractView {
       statsTemplate += `<h1>${statsData.title.fail}</h1>`;
     }
 
-    statsTemplate += getTemplateHistory(this.history);
+    statsTemplate += this.history.map((item, i) => getTemplate(item, i + 1));
     statsTemplate += `</div>
       ${footer}`;
 
@@ -84,9 +74,9 @@ export default class StatsView extends AbstractView {
   }
 
   bind() {
-    const btnBack = this.element.querySelector(`.back`);
+    const btnBackElement = this.element.querySelector(`.back`);
 
-    btnBack.onclick = () => {
+    btnBackElement.onclick = () => {
       this.onBtnBackClick();
     };
   }

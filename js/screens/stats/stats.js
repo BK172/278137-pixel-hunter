@@ -23,15 +23,13 @@ class StatsScreen {
       };
     };
 
-    let gameStatus;
-
     if (state.lives >= 0 && state.level === state.answers.length - 1) {
-      gameStatus = `win`;
+      this.gameStatus = `win`;
     } else {
-      gameStatus = `fail`;
+      this.gameStatus = `fail`;
     }
 
-    state.status = gameStatus;
+    state.status = this.gameStatus;
     state.scores = getScore(state.answers, state.lives);
     state.scoreCount = getScoreCount(state.answers);
     state.lives = state.lives === -1 ? 0 : state.lives;

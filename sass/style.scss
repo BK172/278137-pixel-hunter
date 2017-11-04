@@ -50,12 +50,6 @@ a {
   background: rgba(0, 0, 0, 0.5);
 }
 
-.fadeIn {
-  opacity: 1;
-  transition: opacity 1s ease-in-out;
-}
-
-.fadeOut {
-  opacity: 0;
+.fade {
   transition: opacity 1s ease-in-out;
 }

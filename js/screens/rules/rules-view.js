@@ -18,24 +18,24 @@ export default class RulesView extends AbstractView {
   }
 
   bind() {
-    const rulesBtn = this.element.querySelector(`.rules__button`);
-    const rulesInput = this.element.querySelector(`.rules__input`);
-    const btnBack = this.element.querySelector(`.back`);
+    const rulesBtnElement = this.element.querySelector(`.rules__button`);
+    const rulesInputElement = this.element.querySelector(`.rules__input`);
+    const btnBackElement = this.element.querySelector(`.back`);
 
-    rulesInput.oninput = () => {
-      if (rulesInput.value === ``) {
-        rulesBtn.setAttribute(`disabled`, ``);
+    rulesInputElement.oninput = () => {
+      if (rulesInputElement.value === ``) {
+        rulesBtnElement.setAttribute(`disabled`, ``);
       } else {
-        rulesBtn.removeAttribute(`disabled`);
+        rulesBtnElement.removeAttribute(`disabled`);
       }
     };
 
-    rulesBtn.onclick = (evt) => {
+    rulesBtnElement.onclick = (evt) => {
       evt.preventDefault();
       this.onRulesBtnClick();
     };
 
-    btnBack.onclick = () => {
+    btnBackElement.onclick = () => {
       this.onBtnBackClick();
     };
   }
