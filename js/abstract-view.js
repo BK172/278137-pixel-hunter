@@ -1,17 +1,8 @@
 import {getElementFromTemplate} from './utils';
 
 export default class AbstractView {
-
   get template() {
     throw new Error(`You have to define template for view`);
-  }
-
-  render() {
-    return getElementFromTemplate(this.template);
-  }
-
-  bind() {
-
   }
 
   get element() {
@@ -22,4 +13,11 @@ export default class AbstractView {
     return this._element;
   }
 
+  render() {
+    return getElementFromTemplate(this.template);
+  }
+
+  bind() {
+
+  }
 }

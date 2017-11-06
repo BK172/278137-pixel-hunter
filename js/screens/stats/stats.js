@@ -23,11 +23,7 @@ class StatsScreen {
       };
     };
 
-    if (state.lives >= 0 && state.level === state.answers.length - 1) {
-      this.gameStatus = `win`;
-    } else {
-      this.gameStatus = `fail`;
-    }
+    this.gameStatus = state.lives >= 0 && state.level === state.answers.length - 1 ? `win` : `fail`;
 
     state.status = this.gameStatus;
     state.scores = getScore(state.answers, state.lives);
