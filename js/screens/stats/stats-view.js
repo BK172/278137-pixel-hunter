@@ -60,11 +60,7 @@ export default class StatsView extends AbstractView {
     let statsTemplate = `${getHeader()}
       <div class="result">`;
 
-    if (this.history[0].status === `win`) {
-      statsTemplate += `<h1>${statsData.title.win}</h1>`;
-    } else {
-      statsTemplate += `<h1>${statsData.title.fail}</h1>`;
-    }
+    statsTemplate += this.history[0].status === `win` ? `<h1>${statsData.title.win}</h1>` : `<h1>${statsData.title.fail}</h1>`;
 
     statsTemplate += this.history.map((item, i) => getTemplate(item, i + 1));
     statsTemplate += `</div>

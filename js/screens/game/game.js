@@ -115,14 +115,17 @@ class GameScreen {
 
           target.parentNode.classList.add(`game__option--selected`);
 
-          for (let i = 0; i < answerElements.length; i++) {
-            if (answerElements[i].classList.contains(`game__option--selected`)) {
+          Array.from(answerElements).every((item, i) => {
+            if (item.classList.contains(`game__option--selected`)) {
               const chosenImgType = this.model.data[this.model.state.level].questions[i].answer;
 
               answer1 = chosenImgType === `paint` ? `correct` : `wrong`;
-              break;
+
+              return false;
             }
-          }
+
+            return true;
+          });
 
           this.checkAnswer((answer1 === `wrong`), this.model.state);
         }
